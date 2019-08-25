@@ -1,6 +1,7 @@
 ## community demo
 ## 资料
-https://elasticsearch.cn
-https://spring.io/guides
+[es社区 模板]https://elasticsearch.cn
+[spring 文档]https://spring.io/guides
+[git Oauth apps]https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/
 
-##工具
+## 工具

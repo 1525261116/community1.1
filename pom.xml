@@ -34,8 +34,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-<<<<<<< HEAD
-=======
+
 
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
@@ -49,8 +48,6 @@
             <version>1.2.59</version>
         </dependency>
 
-
->>>>>>> all commit
     </dependencies>
 
     <build>

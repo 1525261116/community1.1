@@ -34,7 +34,7 @@ public class IndexController {
     public String index(HttpServletRequest request,
                         Model model,
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
-                        @RequestParam(name = "size", defaultValue = "5") Integer size) {
+                        @RequestParam(name = "size", defaultValue = "2") Integer size) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -48,8 +48,8 @@ public class IndexController {
                 }
             }
         }
-        PaginationDTO paginationDTOList = questionService.list(page, size);
-        model.addAttribute("paginationDTOList", paginationDTOList);
+        PaginationDTO paginationDTO = questionService.list(page, size);
+        model.addAttribute("paginationDTO", paginationDTO);
 
         return "index";
     }

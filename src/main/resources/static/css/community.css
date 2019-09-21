@@ -6,3 +6,11 @@
     float: right;
     margin: 15px;
 }
+.media-left a .media-object{
+    width: 50px;
+}
+.text-desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}

@@ -1,7 +1,12 @@
 package com.hhit.community.community.controller;
 
+import com.hhit.community.community.dto.PaginationDTO;
+import com.hhit.community.community.dto.QuestionDTO;
+import com.hhit.community.community.mapper.QuestionMapper;
 import com.hhit.community.community.mapper.UserMapper;
+import com.hhit.community.community.model.Question;
 import com.hhit.community.community.model.User;
+import com.hhit.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author 作者: 周鸿
@@ -21,20 +27,30 @@ import javax.servlet.http.HttpServletRequest;
 public class IndexController {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private QuestionService questionService;
 
-    @GetMapping("/index")
-    public String  index(HttpServletRequest request){
+    @GetMapping("/")
+    public String index(HttpServletRequest request,
+                        Model model,
+                        @RequestParam(name = "page", defaultValue = "1") Integer page,
+                        @RequestParam(name = "size", defaultValue = "5") Integer size) {
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")){
-                String token = cookie.getValue();
-                User user=userMapper.findByToken(token);
-                if(user!=null){
-                    request.getSession().setAttribute("user",user);
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("token".equals(cookie.getName())) {
+                    String token = cookie.getValue();
+                    User user = userMapper.findByToken(token);
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                    }
+                    break;
                 }
-                break;
             }
         }
+        PaginationDTO paginationDTOList = questionService.list(page, size);
+        model.addAttribute("paginationDTOList", paginationDTOList);
+
         return "index";
     }
 }

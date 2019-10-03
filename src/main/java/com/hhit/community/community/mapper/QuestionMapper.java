@@ -18,8 +18,16 @@ import java.util.List;
 public interface QuestionMapper {
     @Insert("insert into question(title,description,gmt_create,gmt_modified,creator_id,tag) values(#{title},#{description},#{gmtCreate},#{gmtModified},#{creatorId},#{tag})")
     void create(Question question);
+
     @Select("select * from question limit #{offset},#{size}")
     List<Question> list(@Param(value = "offset") Integer offset, @Param(value = "size") Integer size);
+
     @Select("select count(1) from question")
     Integer count();
+
+    @Select("select count(1) from question where creator_id=#{userId}")
+    Integer countByUserId(@Param("userId") Integer userId);
+
+    @Select("select * from question where creator_id=#{userId} limit #{offset},#{size}")
+    List<Question> listByUserId(@Param("userId") Integer userId, @Param(value = "offset") Integer offset, @Param(value = "size") Integer size);
 }

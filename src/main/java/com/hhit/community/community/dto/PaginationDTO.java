@@ -1,8 +1,10 @@
 package com.hhit.community.community.dto;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 public class PaginationDTO {
     private List<QuestionDTO> questionDTOs;
     private boolean showPrevious;
@@ -11,79 +13,20 @@ public class PaginationDTO {
     private boolean showEndPage;
     private Integer page;
     private List<Integer> pages = new ArrayList<>();
+    private  Integer totalPage;
 
-    public List<QuestionDTO> getQuestionDTOs() {
-        return questionDTOs;
-    }
 
-    public void setQuestionDTOs(List<QuestionDTO> questionDTOs) {
-        this.questionDTOs = questionDTOs;
-    }
-
-    public boolean isShowPrevious() {
-        return showPrevious;
-    }
-
-    public void setShowPrevious(boolean showPrevious) {
-        this.showPrevious = showPrevious;
-    }
-
-    public boolean isShowFirstPage() {
-        return showFirstPage;
-    }
-
-    public void setShowFirstPage(boolean showFirstPage) {
-        this.showFirstPage = showFirstPage;
-    }
-
-    public boolean isShowNext() {
-        return showNext;
-    }
-
-    public void setShowNext(boolean showNext) {
-        this.showNext = showNext;
-    }
-
-    public boolean isShowEndPage() {
-        return showEndPage;
-    }
-
-    public void setShowEndPage(boolean showEndPage) {
-        this.showEndPage = showEndPage;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
+    public void setPagination(Integer totalPage, Integer page, Integer size) {
+        this.totalPage=totalPage;
         this.page = page;
-    }
-
-    public List<Integer> getPages() {
-        return pages;
-    }
-
-    public void setPages(List<Integer> pages) {
-        this.pages = pages;
-    }
-
-    public void setPagination(Integer totalCount, Integer page, Integer size) {
-        Integer totalPage = 0;
-        if (totalCount % size == 0) {
-            totalPage = totalCount / size;
-        } else {
-            totalPage = (totalCount / size) + 1;
-        }
-        for (int i =1; i<=3;i++){
-            if (page-i>0){
-                pages.add(page-i,0);
+        for (int i = 0; i < 3; i++) {
+            if (page - i > 0) {
+                pages.add(0, page - i);
             }
-            if (page+i<=totalCount){
-                pages.add(page+1);
+            if (page + i + 1 <= totalPage) {
+                pages.add(page + i + 1);
             }
         }
-
         //是否展示上一页
         if (page == 1) {
             showPrevious = false;
@@ -101,7 +44,7 @@ public class PaginationDTO {
         } else {
             showFirstPage = true;
         }
-        if (pages.contains(totalCount)) {
+        if (pages.contains(totalPage)) {
             showEndPage = false;
         } else {
             showEndPage = true;

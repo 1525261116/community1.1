@@ -1,15 +1,10 @@
-package com.hhit.community.community.model;
+package com.hhit.community.community.dto;
 
+import com.hhit.community.community.model.User;
+import lombok.Data;
 
-
-/**
- * @author 作者: 周鸿
- * @version v1.0 创建时间: 2019/9/7 15:51
- * @email 邮箱: 1525261116@qq.com
- * @description 描述:
- */
-
-public class Question {
+@Data
+public class QuestionDTO {
     private Integer id;
     private  String title;
     private String description;
@@ -20,6 +15,7 @@ public class Question {
     private Integer viewCount;
     private Integer likeCount;
     private String tag;
+    private User user;
 
     public Integer getId() {
         return id;
@@ -99,5 +95,13 @@ public class Question {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

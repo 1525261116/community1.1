@@ -23,6 +23,9 @@ public class QuestionService {
 
     public PaginationDTO list(Integer page, Integer size) {
         Integer totalCount = questionMapper.count();//查询数据库中数据条数
+        if (totalCount == 0) {
+            return null;
+        }
         Integer totalPage;
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
@@ -49,8 +52,12 @@ public class QuestionService {
         paginationDTO.setPagination(totalPage, page, size);
         return paginationDTO;
     }
-    public PaginationDTO listByUserId(Integer userId, Integer page, Integer size){
+
+    public PaginationDTO listByUserId(Integer userId, Integer page, Integer size) {
         Integer totalCount = questionMapper.countByUserId(userId);//查询数据库中数据条数
+        if (totalCount == 0) {
+            return null;
+        }
         Integer totalPage;//总页数
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
@@ -63,7 +70,8 @@ public class QuestionService {
             page = totalPage;
         }
         Integer offset = size * (page - 1);//分页查询，offset=从那条数据开始，page=页码，size等于每页多少条数据
-        List<Question> questions = questionMapper.listByUserId(userId,offset, size);
+
+        List<Question> questions = questionMapper.listByUserId(userId, offset, size);
         List<QuestionDTO> questionDTOList = new ArrayList<QuestionDTO>();
         PaginationDTO paginationDTO = new PaginationDTO();
         for (Question question : questions) {
@@ -76,5 +84,7 @@ public class QuestionService {
         paginationDTO.setQuestionDTOs(questionDTOList);
         paginationDTO.setPagination(totalPage, page, size);
         return paginationDTO;
+
+
     }
 }

@@ -14,3 +14,13 @@
     font-weight: normal;
     color: #999;
 }
+.community-menu{
+    color: #999;
+    size: 13px;
+}
+.img-person{
+    width: 30px;
+}
+.name-person{
+    line-height: 2.428571;
+}

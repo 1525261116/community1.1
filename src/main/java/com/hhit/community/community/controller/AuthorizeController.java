@@ -5,6 +5,7 @@ import com.hhit.community.community.dto.GithubUser;
 import com.hhit.community.community.mapper.UserMapper;
 import com.hhit.community.community.model.User;
 import com.hhit.community.community.provider.GithubProvider;
+import com.hhit.community.community.service.UserService;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,7 +30,7 @@ public class AuthorizeController {
     private GithubProvider githubProvider;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @Value("${github.client_id}")
     private String clienId;
@@ -58,10 +59,8 @@ public class AuthorizeController {
             user.setToken(token);
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setName(githubUser.getName());
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            userMapper.insert(user);
+            userService.insertOrUpdate(user);
             response.addCookie(new Cookie("token",token));
             return "redirect:/";
         } else {

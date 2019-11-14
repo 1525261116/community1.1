@@ -1,5 +1,7 @@
 package com.hhit.community.community;
 
+import com.hhit.community.community.exception.ServiceException;
+import com.hhit.community.community.exception.SysErrorEnums;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +13,15 @@ public class CommunityApplicationTests {
 
     @Test
     public void contextLoads() {
+        if(true){
+            try {
+                throw new ServiceException(SysErrorEnums.EMPTY_PARAME);
+            }catch (ServiceException e){
+                e.getMessage();
+                System.out.println(e.getErrorMessage()+e.getErrorCode());
+            }
+
+        }
     }
 
 }

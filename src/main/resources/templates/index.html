@@ -33,6 +33,7 @@
                     </div>
                     <hr>
                 </div>
+
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
                         <li th:if="${paginationDTO.showFirstPage==true}">
@@ -42,7 +43,7 @@
                         </li>
                         <li th:if="${paginationDTO.showPrevious==true}">
                             <a th:href="@{/(page=${paginationDTO.page-1})}" aria-label="Previous">
-                                <span aria-hidden="true">&lt;</span>
+                                <span aria-hidden="true">&lt</span>
                             </a>
                         </li>
                         <li th:each="page : ${paginationDTO.pages}" th:class="${paginationDTO.page==page}?'active':''">

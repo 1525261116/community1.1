@@ -13,9 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+
 
 /**
  * @author 作者: 周鸿
@@ -33,9 +32,9 @@ public class IndexController {
     public String index(HttpServletRequest request,
                         Model model,
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
-                        @RequestParam(name = "size", defaultValue = "2") Integer size) {
+                        @RequestParam(name = "size", defaultValue = "5") Integer size) {
         Object user = request.getSession().getAttribute("user");
-        System.out.println(user);
+       // System.out.println(user);
         PaginationDTO paginationDTO = questionService.list(page, size);
         model.addAttribute("paginationDTO", paginationDTO);
         return "index";

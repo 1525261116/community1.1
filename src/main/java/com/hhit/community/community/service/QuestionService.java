@@ -98,24 +98,27 @@ public class QuestionService {
     }
 
     public void creatOrUpdate(Question question) {
-        if (question.getCreatorId() == null) {
+        if (question.getId() == null) {
             question.setGmtCreate(System.currentTimeMillis());
-            System.out.println("sdsadsa");
+
             questionMapper.create(question);
         } else {
             question.setGmtModified(question.getGmtCreate());
-            System.out.println(question.getId());
             questionMapper.update(question);
 
         }
     }
 
 
-    public void incView(Integer id) {
+    public void incView(Integer id, Integer viewCount) {
+        questionMapper.updateViewCountById(id, viewCount);
+
+
+    }
+
+    public void incComment(Integer id) {
         Question question = questionMapper.findById(id);
-        Integer viewCount = question.getViewCount() + 1;
-        questionMapper.updateViewCountById(id,viewCount);
-
-
+        int commentCount = question.getCommentCount() + 1;
+        int  i= questionMapper.updateCommentCount(question.getId(),commentCount);
     }
 }

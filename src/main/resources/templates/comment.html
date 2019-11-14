@@ -1,0 +1,26 @@
+<!--评论区-->
+
+<div th:if="${comments!=null}">
+    <div class="media"
+         th:each="comment : ${comments}">
+        <div class="media-left">
+            <a href="#" th:if="${comment.user != null}">
+                <img class="media-object img-rounded comment-img" th:src="${comment.user.avatarUrl}">
+            </a>
+        </div>
+        <div class="media-body">
+            <a><h6 class="media-heading commentator-name" th:text="${comment.user.name}"></h6></a>
+            <div><span class="media-heading comment-content" th:text="${comment.content}"></span>
+                <span class="community-menu comment-time">回复</span>
+            </div>
+            <div class="text-desc">
+            <span class="comment-time"
+                  th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd')}"></span><span
+                    class="glyphicon glyphicon-heart-empty comment-time" th:text="${comment.likeCount}">0</span></div>
+
+
+        </div>
+        <hr>
+    </div>
+</div>
+

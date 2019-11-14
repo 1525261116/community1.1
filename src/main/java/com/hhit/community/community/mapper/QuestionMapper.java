@@ -33,4 +33,6 @@ public interface QuestionMapper {
     void update(Question question);
     @Update("update question set view_count=#{viewCount} where id =#{id}")
     void updateViewCountById(@Param("id")Integer id,@Param("viewCount") Integer viewCount);
+    @Update("update question set comment_count=#{commentCount} where id =#{id}")
+    int updateCommentCount(@Param("id")Integer id,@Param("commentCount") Integer commentCount);
 }
